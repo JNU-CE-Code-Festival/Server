@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Access Denied - ProgrammingFree</title>
+    <link rel="stylesheet" href="/css/403.css" type="text/css">
 </head>
 <body>
-<h1>You do not have permission to access this page!
-</h1>
-<form action="/logout" method="post">
-    <input type="submit" value="Sign in as different user" />
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-</form>
+    <main>
+        <h1>Forbidden</h1>
+        <h2>You don't have permission to access / on this server</h2>
+        <h3>Check your ID or Password</h3>
+    </main>
 </body>
 </html>

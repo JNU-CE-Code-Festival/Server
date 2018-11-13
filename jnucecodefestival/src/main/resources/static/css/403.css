@@ -1,0 +1,17 @@
+body {
+    padding: 0;
+    margin: 4px;
+    color: white;
+    width: 100%;
+    /*background-image: url();*/
+
+    background: url("/img/godghil.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+main {
+    width: 100%;
+}
