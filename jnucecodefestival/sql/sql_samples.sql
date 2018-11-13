@@ -36,8 +36,3 @@ INSERT INTO user_roles (username, role) VALUES ('kyj', 'ROLE_ADMIN');
 /* 사용자 권한 삽입 */
 INSERT INTO user_roles (username, role) VALUES ('최원범', 'ROLE_USER');
 INSERT INTO user_roles (username, role) VALUES ('김대남', 'ROLE_USER');
-INSERT INTO user_roles (username, role) VALUES ('ssh', 'ROLE_USER');
-INSERT INTO user_roles (username, role) VALUES ('lcg', 'ROLE_USER');
-INSERT INTO user_roles (username, role) VALUES ('hjh', 'ROLE_USER');
-INSERT INTO user_roles (username, role) VALUES ('ksj', 'ROLE_USER');
-INSERT INTO user_roles (username, role) VALUES ('kyj', 'ROLE_USER');
