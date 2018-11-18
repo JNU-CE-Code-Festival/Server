@@ -12,19 +12,20 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/").setViewName("hello");
         registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/403").setViewName("403");
+        registry.addViewController("/code").setViewName("main");
     }
 
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost/logintest?characterEncoding=utf8");
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("sslabflask");
+        driverManagerDataSource.setUrl("jdbc:mysql://172.18.102.128/logintest?characterEncoding=utf8");
+        driverManagerDataSource.setUsername("contest");
+        driverManagerDataSource.setPassword("sslab08295860");
 
         return driverManagerDataSource;
     }

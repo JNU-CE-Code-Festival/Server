@@ -1,0 +1,47 @@
+.header {
+    position: relative;
+    background-color:#ffffff;
+    min-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 0.5px solid #e7e7e7;
+}
+.logo {
+}
+
+.title {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    color: #aaaaaa;
+    text-align:center;
+}
+.user {
+    display:flex;
+    font-weight: 100;
+    justify-content: center;
+    align-content: center;
+}
+.username {
+    color: #000000;
+    text-align: right;
+    font-size: 14pt;
+    margin: 0px;
+}
+
+.logout {
+    border: 0px;
+    font-size: 10pt;
+    border-radius: 8px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #000000;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

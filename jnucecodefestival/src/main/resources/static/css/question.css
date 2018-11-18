@@ -1,0 +1,41 @@
+html,body {
+    color:#fff;
+    background:#556565;
+}
+.qHeader {
+    top:0;
+    left:0;
+    z-index:1;
+    width:100%;
+    background:#556565;
+    border-bottom:5px solid #ff0;
+}
+.header-proper {
+	width: 80%;
+	margin: 0 auto;
+}
+.header-proper .logo {
+    font-family: Poppins;
+    font-weight:300;
+}
+.scroll-line {
+    height:5px;
+    margin-bottom:-5px;
+    background:#f00;
+    width:0%;
+}
+.questionMain {
+    padding:100px 0;
+    margin:0 auto;
+    width:100%;
+    background:transparent;
+    
+}
+p {
+    font-family:Poppins;
+    font-size:120%;
+    font-weight:300;
+    color:white;
+    line-height:40px;
+    
+}
