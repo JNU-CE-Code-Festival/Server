@@ -23,7 +23,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://172.18.102.128/logintest?characterEncoding=utf8");
+        driverManagerDataSource.setUrl("jdbc:mysql://172.18.102.128/programming_contest?characterEncoding=utf8");
         driverManagerDataSource.setUsername("contest");
         driverManagerDataSource.setPassword("sslab08295860");
 
