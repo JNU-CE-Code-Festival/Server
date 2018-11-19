@@ -19,16 +19,16 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/code").setViewName("main");
     }
 
-    @Bean(name = "dataSource")
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://172.18.102.128/programming_contest?characterEncoding=utf8");
-        driverManagerDataSource.setUsername("contest");
-        driverManagerDataSource.setPassword("sslab08295860");
+    // @Bean(name = "dataSource")
+    // public DriverManagerDataSource dataSource() {
+    //     DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+    //     driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    //     driverManagerDataSource.setUrl("jdbc:mysql://172.18.102.128/programming_contest?characterEncoding=utf8");
+    //     driverManagerDataSource.setUsername("contest");
+    //     driverManagerDataSource.setPassword("sslab08295860");
 
-        return driverManagerDataSource;
-    }
+    //     return driverManagerDataSource;
+    // }
 
     /*@Bean
     public InternalResourceViewResolver viewResolver() {
