@@ -1,11 +1,11 @@
-var tabNavigator = document.querySelector('.tab_nav');
+var tabNavigator = document.querySelector('ul.tab_nav');
 var container = document.querySelector('.wrap');
 
 class Problem {
     constructor() {
 
-        this.initTabNav = this.initTabNav.bind(this);
-        init();
+        this.init = this.init.bind(this);
+        this.init();
     }
 
     renderList() {
@@ -13,7 +13,7 @@ class Problem {
     }
 
     init() {
-        tabNavigator.addEventListener('click', initializeTabNavigator.bind(this));
+        tabNavigator.addEventListener('click', this.initializeTabNavigator.bind(this));
     }
 
     initializeTabNavigator(event) {
