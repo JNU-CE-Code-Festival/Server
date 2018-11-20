@@ -24,7 +24,8 @@ public class ProblemController {
         UserDetails userDetails = (UserDetails) principal;
 
         JSONObject result = new JSONObject();
-        List<Map<String, Object>> problemList = this.jdbc.queryForList("select problem.Id,problemNum,problemTitle from problem,users where problem.grade=users.grade and users.username=\"" + userDetails.getUsername() + "\"");
+        List<Map<String, Object>> problemList = 
+        this.jdbc.queryForList("select problem.Id,problemNum,problemTitle from problem,users where problem.grade=users.grade and users.username=\"" + userDetails.getUsername() + "\"");
         result.put("data", problemList);
         return result;
     }

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.AbstractPasswordEncoder;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -34,17 +35,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/", "/code", "/hello")
-            .hasRole("USER")
-            .anyRequest().permitAll()
-            .and()
-            .formLogin().loginPage("/login")
-            .usernameParameter("username").passwordParameter("password")
-            .and()
-            .logout().logoutSuccessUrl("/login?logout")
-            .and()
-            .exceptionHandling().accessDeniedPage("/403")
-            .and()
+                .antMatchers("/code", "/hello")
+                .denyAll()
+                .and()
+            .authorizeRequests()
+                .antMatchers("/", "/code")
+                .hasRole("USER")
+                .anyRequest()
+                .permitAll()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and()
+            .logout()
+                .logoutSuccessUrl("/login?logout")
+                .and()
+            .exceptionHandling()
+                .accessDeniedPage("/403")
+                .and()
             .csrf().disable();
     }
 }
