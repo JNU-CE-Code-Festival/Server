@@ -11,6 +11,12 @@
     border-bottom: 0.5px solid #e7e7e7;
 }
 .logo {
+    background-image: url('/img/simbol.jpg');
+    background-color:'#777777';
+    background-position: center;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
 }
 
 .title {

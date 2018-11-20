@@ -65,7 +65,9 @@ class Problem {
     renderScore() {
         console.log("score");
         try {
-            this.container.innerHTML = "";
+            this.container.innerHTML = "살려줘";
+        } catch(err) {
+            console.error(err);
         }
     }
 
