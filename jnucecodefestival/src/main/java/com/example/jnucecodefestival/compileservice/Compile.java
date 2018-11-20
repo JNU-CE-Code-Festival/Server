@@ -243,7 +243,7 @@ public class Compile {
             sb.append(line);
             sb.append(System.getProperty("line.separator"));
         }
-
+        br.close();
         return sb;
     }
 
