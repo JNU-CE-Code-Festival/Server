@@ -4,15 +4,16 @@ body {
 }
 
 .container {
+    position: relative;
     min-width: 300px;
     max-width: 960px;
     height: auto;
-    background-color: #ffffff;
-    margin: 40px auto 40px auto;
-    box-shadow: 0 3px 2px #aaaaaa;
-    z-index: 2;
+    background-color: #f7f7f7;
+    margin: -90px auto 40px auto;
+    box-shadow: 0 3px 10px #aaaaaa;
+    z-index: 3;
     border-radius: 10px;
-    padding:20px 0px
+    padding:50px 0px 20px 0px;
 }
 
 .tab_nav {
