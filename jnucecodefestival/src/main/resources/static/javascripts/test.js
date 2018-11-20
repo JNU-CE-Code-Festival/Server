@@ -2,6 +2,7 @@ var submitCode = document.querySelector('#submitCode');
 var codeBlock = document.querySelector('#textbox');
 var resultBlock = document.querySelector('#code_input');
 var langSel = document.querySelector('.lang');
+var username = document.querySelector('ul > li > a.nav-link').innerText.trim();
 
 function onLangChange() {
     let langValue = langSel.value;
@@ -20,7 +21,7 @@ submitCode.addEventListener('mousedown', function(event) {
             },
             'body': JSON.stringify({
                 'code': code,
-                'createAuthor': 'user',
+                'createAuthor': username,
                 'language' : langSel.value
             }),
         }

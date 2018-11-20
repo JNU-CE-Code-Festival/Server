@@ -23,11 +23,13 @@ select.lang {
   background-color:#343a40;
   padding:20px;
   border:0;
+  
 }
 
 select.lang > .lang-val {
   color: #ffffff;
   font-size: 30pt;
+  -webkit-appearance:none;
 }
 
 .editor{
