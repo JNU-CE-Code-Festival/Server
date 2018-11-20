@@ -218,7 +218,7 @@ public class Compile {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath + "/" + fileName), "UTF-8"));
             writer.write(code);
         } catch (IOException ex) {
-            System.out.println("?????? ?????? ??????!");
+            System.out.println("파일 생성중 문제 발생!!");
         } finally {
             try {
                 writer.close();

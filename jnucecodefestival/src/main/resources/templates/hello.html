@@ -39,16 +39,14 @@
             <li id="problem" class="active"><a href="#">문제</a></li>
             <li id="score"><a href="#">점수</a></li> 
         </ul>
-        <div class="wrap">
-            <a class="item" href="#">
-                <div class="item_number">1</div>
-                <div class="item_subject">Hello, World! 출력하기</div>
-            </a>
-            <a class="item" href="#">
-                <div class="item_number">1</div>
-                <div class="item_subject">Hello, World! 출력하기</div>
+        <div th:each="item : ${problemList}" class="wrap">
+            <a th:href='|/code?number=${item.get("Id")}|' class="item" >
+                <div th:text='${item.get("problemNum")}' class="item_number"></div>
+                <div th:text='${item.get("problemTitle")}' class="item_subject"></div>
             </a>
         </div>
     </div>
+
+    <script src="/javascripts/problem.js"></script>
 </body>
 </html>
