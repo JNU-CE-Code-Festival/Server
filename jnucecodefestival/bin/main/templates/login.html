@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html 
+lang="ko" 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+  <head>
+    <title>컴퓨터공학전공 코드페스티벌</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="/css/bootstrap.min.js"></script>
+    <link href="/css/Login.css" rel="stylesheet">
+    <link href="/css/animations.css" rel="stylesheet">
+    <!-- <script src="Control.js"></script> -->
+    <!------ Include the above in your HEAD tag ---------->
+  </head>
+  <body>
+    <div class="login-bg">
+      <video src="/img/code.mp4" autoplay loop style="position: absolute; width:100vw; height: 100vh; object-fit: cover;"></video>"
+      <div class=" fadeInDown SlideExpandUp" >
+          <div id="formContent">
+            <!-- Tabs Titles -->
+            
+            <!-- Icon -->
+            <div class="fadeIn first" >
+              <!-- <img src="/images/simbol.jpg" id="icon" alt="User Icon" /> -->
+              <h1 style="margin-top: 30px;">컴퓨터공학전공 <br>코딩페스티벌</h1>
+            </div>
+        
+            <!-- Login Form -->
+            <form th:action="@{/login}" method="post">
+              <input type="text" id="login" class="auth fadeIn second" name="username" placeholder="사용자 ID" />
+              <input type="password" id="password" class="auth fadeIn third" name="password" placeholder="비밀번호" />
+              <input type="submit" class="fadeIn fourth" value="로그인" />
+            </form>
+        
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+              <a class="underlineHover" href="http://ce.jejunu.ac.kr/">제주대학교 컴공 바로가기</a>
+              <div th:if="${param.error}"> 아이디 혹은 패스워드가 잘못 되었습니다.</div>
+              <div th:if="${param.logout}"> 로그아웃되었습니다.  </div>
+            </div>
+        
+          </div>
+        </div>
+    </div>
+    
+    <div>
+    
+    </div>
+  </body>
+</html>
+
+

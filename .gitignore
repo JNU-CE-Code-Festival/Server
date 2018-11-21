@@ -107,6 +107,5 @@ fabric.properties
 hs_err_pid*
 
 .vscode
-bin
 # End of https://www.gitignore.io/api/java,intellij
 compile

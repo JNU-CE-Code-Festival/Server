@@ -1,0 +1,55 @@
+.header {
+    position: relative;
+    background-color:#ffffff;
+    min-height: 50px;
+    z-index: 3;
+    box-shadow: 0 0 10px #777777;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 80px;
+}
+.logo {
+    background-image: url('/img/simbol.jpg');
+    background-color:'#777777';
+    background-position: center;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.title {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    color: #aaaaaa;
+    text-align:center;
+}
+.user {
+    display:flex;
+    font-weight: 100;
+    justify-content: center;
+    align-content: center;
+}
+.username {
+    color: #000000;
+    text-align: right;
+    font-size: 14pt;
+    margin: 0px;
+}
+
+.logout {
+    border: 0px;
+    font-size: 10pt;
+    border-radius: 8px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #000000;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

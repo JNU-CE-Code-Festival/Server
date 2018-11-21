@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>컴퓨터공학전공 코딩 대회</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/homeMain.css">
+</head>
+<body>
+    <div class="header">
+        <p class="logo"></p>
+        <!-- <h1 class="title">제주대학교 코드 페스티벌</h1> -->
+        <div class="user">
+            <p class="username">[[${#httpServletRequest.remoteUser}]]</p>
+            <form th:action="@{/logout}" method="post">
+                <input class="logout" type="submit" value="로그아웃"/>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <p class="title">컴퓨터공학전공 코딩 대회</p>
+        <ul class="tab_nav">
+            <li id="problem" class="active">문제</li>
+            <li id="score">점수</li> 
+        </ul>
+        <div class="wrap"></div>
+    </div>
+
+    <script src="/javascripts/problem.js"></script>
+</body>
+</html>
