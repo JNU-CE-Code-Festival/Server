@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/javascripts/jquery-3.3.1.min.js"></script>
+    <script src="/javascripts/Main.js"></script>
+    <link href="/css/question.css" rel="stylesheet">
+    <script src="/javascripts/question.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/css/animations.css" rel="stylesheet">
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <link href="/css/result.css" rel="stylesheet">
+    <link href="/css/editor.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Main.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/javascripts/templateCode.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" >
+    <title>제주대학교 컴퓨터공학전공 코드페스티벌</title>
+</head>
+
+<body>
+    <div class="contain">
+
+        <!----타이틀바입니다.-->
+        <div class="Title">
+            <div class="has-animation animation-ltr"> 
+            </div>
+        </div>
+
+        <!---여기는 로고바입니다.-->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/"><img class="logo" src="/img/simbol.jpg" height="40"> 제주대학교 컴퓨터공학
+                    전공 코드페스티벌</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar1">
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item"><a class="nav-link" th:inline="text">
+                                [[${#httpServletRequest.remoteUser}]]</a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" class="btn ml-2 btn-warning" value="Sign Out" />
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!--본문 내용입니다.-->
+        <div class="page">
+
+            <!---여기는 왼쪽 슬라이드입니다.-->
+            <div class="left">
+                <!-- <div class="item">
+                    <i class="fas fa-fw fa-bars"></i> 문제
+                </div>
+                <div class="item active">
+                    <i class="fas fa-fw fa-map-marked-alt"></i> 정렬알고리즘
+                </div>
+                <div class="item">
+                    <i class="fas fa-fw fa-columns"></i> 순환 알고리즘
+                </div>
+                <div class="item">
+                    <i class="fas fa-fw fa-th"></i> 스택
+                </div>
+                <div class="item">
+                    <i class="fas fa-fw fa-user-circle"></i> 큐
+                </div> -->
+            </div>
+            <!--문제가 출제될 공간입니다.-->
+            <div class="content slideRight">
+                <div class='question'>
+
+                    <!--문제 제목입니다.-->
+                    <div class="Qname">
+                        <h1 th:text="${problemTitle}"> 문제1</h1>
+                    </div>
+
+                    <!--문제 내용입니다.-->
+                    <div class="main">
+                        <div th:text="${problemContent}"></div>
+                        <div th:text="${problemInputDescription}"></div>
+                        <div th:text="${problemOutputDescription}"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--이곳은 에디터와 결과창입니다.-->
+            <div class="right">
+                <div class="EditAndResult">
+                    <!--언어 선택창입니다.-->
+                    <div class="selectLanguage">
+                        <select onchange="onLangChange()" name="language" class="lang">
+                            <option class="lang-val" value="c">C</option>
+                            <option class="lang-val" value="cpp">C++</option>
+                            <option class="lang-val" value="java">JAVA</option>
+                            <option class="lang-val" value="js">JavaScript</option>
+                            <option class="lang-val" value="py">Python3</option>
+                        </select>
+                    </div>
+
+                    <!--이곳은 에디터창입니다.-->
+                    <textarea id="textbox" class="editor slideDown">
+
+                    </textarea>
+
+                    <!--이곳은 결과창입니다.-->
+                    <div class="result slideUp">
+                        <div class="VBhead">
+                            <div class="bitem">
+                                <ul class="bitem-ul">
+                                    <li class="bitem-u-li">
+                                        <p class="itemred"></p>
+                                    </li>
+                                    <li class="bitem-u-li">
+                                        <p class="itemyl"></p>
+                                    </li>
+                                    <li class="bitem-u-li">
+                                        <p class="itemgr"></p>
+                                    </li>
+                                    <li class="bitem-u-li">
+                                        <p class="itemtext"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="VBbody">
+                            <div class="textarea" name="code_input" id="code_input">이곳은 결과창입니다.</div>
+                            <div class="buttonBar">
+                            <Button id="submitCode">코드 테스트!</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--하단입니다.-->
+    <footer class="footer">
+        <div class="container">
+            <ul style="text-align:center; color: white;">Copyright @2018 <br>Designed With by <a href="http://ce.jejunu.ac.kr/">제주대학교 공과대학 컴퓨터공학전공
+            </a></ul>
+        </div>
+    </footer>
+    <script src="/javascripts/textarea.js"></script>
+    <script src="/javascripts/test.js"></script>
+</body>
+</html>
