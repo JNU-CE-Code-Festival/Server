@@ -17,7 +17,26 @@
     <link rel="stylesheet" href="/css/Main.css">
     <link rel="stylesheet" href="/css/footer.css">
     <script src="/javascripts/templateCode.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" >
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/show-hint.css">
+    <link rel="stylesheet" href="/css/darcula.css">
+    <!--코드 하이라이트-->
+    <script src="/javascripts/codemirror.js"></script>
+    <script src="/javascripts/continuecomment.js"></script>
+    <script src="/javascripts/matchbrackets.js"></script>
+    <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
+
+    <!----------------->
+
+    <script>
+    window.onload = function () {
+        var readOnlyCodeMirror = CodeMirror.fromTextArea(document.getElementById('textbox'), {
+        theme: "darcula",
+        lineNumbers: true,
+        });  
+    };
+    </script>
     <title>제주대학교 컴퓨터공학전공 코드페스티벌</title>
 </head>
 
@@ -81,11 +100,7 @@
 
                     <!--문제 제목입니다.-->
                     <div class="Qname">
-<<<<<<< HEAD
-                        <h1 th:text="${problem}">문제1</h1>
-=======
                         <h1 th:text="${problemTitle}"> 문제1</h1>
->>>>>>> 3f675727b6a48f7cc0de89b06eabf3b50c58003e
                     </div>
 
                     <!--문제 내용입니다.-->
@@ -99,9 +114,8 @@
             
             <!--이곳은 에디터와 결과창입니다.-->
             <div class="right">
-                <div class="EditAndResult">
                     <!--언어 선택창입니다.-->
-                    <div class="selectLanguage">
+                    <div class="selectLanguage slideDown">
                         <select onchange="onLangChange()" name="language" class="lang">
                             <option class="lang-val" value="c">C</option>
                             <option class="lang-val" value="cpp">C++</option>
@@ -110,12 +124,9 @@
                             <option class="lang-val" value="py">Python3</option>
                         </select>
                     </div>
-
                     <!--이곳은 에디터창입니다.-->
-                    <textarea id="textbox" class="editor slideDown">
-
-                    </textarea>
-
+                    <div class="code_editor slideLeft" id='textbox'>
+                    </div>
                     <!--이곳은 결과창입니다.-->
                     <div class="result slideUp">
                         <div class="VBhead">
@@ -143,7 +154,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
