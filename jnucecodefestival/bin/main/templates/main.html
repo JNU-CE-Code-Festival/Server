@@ -20,17 +20,19 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" >
     <link rel="stylesheet" href="/css/codemirror.css">
     <link rel="stylesheet" href="/css/show-hint.css">
+    <link rel="stylesheet" href="/css/darcula.css">
     <!--코드 하이라이트-->
     <script src="/javascripts/codemirror.js"></script>
     <script src="/javascripts/continuecomment.js"></script>
     <script src="/javascripts/matchbrackets.js"></script>
     <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
+
     <!----------------->
 
     <script>
     window.onload = function () {
         var readOnlyCodeMirror = CodeMirror.fromTextArea(document.getElementById('textbox'), {
-        theme: "default",
+        theme: "darcula",
         lineNumbers: true,
         });  
     };
@@ -122,10 +124,8 @@
                             <option class="lang-val" value="py">Python3</option>
                         </select>
                     </div>
-
                     <!--이곳은 에디터창입니다.-->
                     <div class="code_editor slideLeft" id='textbox'>
-                        
                     </div>
                     <!--이곳은 결과창입니다.-->
                     <div class="result slideUp">
