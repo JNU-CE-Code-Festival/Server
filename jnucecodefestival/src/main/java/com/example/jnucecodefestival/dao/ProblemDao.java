@@ -1,39 +1,47 @@
-// package com.example.jnucecodefestival.dao;
+package com.example.jnucecodefestival.dao;
 
-// import com.example.jnucecodefestival.service.Problem;
+import com.example.jnucecodefestival.connectionmaker.ConnectionMaker;
+import com.example.jnucecodefestival.service.Problem;
 
-// import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-// public class ProblemDao {
-//     public Problem get(String id) throws ClassNotFoundException, SQLException {
-//         Class.forName("org.mariadb.jdbc.Driver");
-//         Connection connection = DriverManager.getConnection(
-//                 "jdbc:mariadb://172.18.102.128/programming_contest", "contest", "sslab08295860");
+public class ProblemDao {
+    private ConnectionMaker connectionMaker;
 
-//         PreparedStatement preparedStatement = connection.prepareStatement(
-//                 "select * from users where id = ?");
-//         preparedStatement.setString(1, id);
+    public ProblemDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
-//         ResultSet resultSet = preparedStatement.executeQuery();
-//         resultSet.next();
+    public Problem get(int problemNum) throws SQLException, ClassNotFoundException {
+        Connection connection = connectionMaker.makeConnection();
 
-//         resultSet.toString();
-//         // Problem problem = new Problem();
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "select * from where problemNum = ?");
+        preparedStatement.setInt(1, problemNum);
 
-//         // problem.setProblemNum(resultSet.getString("problemNum"));
-//         // problem.set (resultSet.getString("id"));
-//         // problem.setPassword(resultSet.getString("password"));
-//         // problem.setName(resultSet.getString("name"));
-//         // problem.setGrade(resultSet.getInt("grade"));
-//         // problem.setScoreGet(resultSet.getInt("score_get"));
-//         // problem.setFirstBool(resultSet.getBoolean("first_bool"));
-//         // problem.setSecondBool(resultSet.getBoolean("second_bool"));
-//         // problem.setThirdBool(resultSet.getBoolean("third_bool"));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
 
-//         resultSet.close();
-//         preparedStatement.close();
-//         connection.close();
+        Problem problem = new Problem();
+        problem.setId(resultSet.getInt("id"));
+        problem.setGrade(resultSet.getInt("grade"));
+        problem.setProblemNum(resultSet.getInt("problemNum"));
+        problem.setProblemTitle(resultSet.getString("problemTitle"));
+        problem.setProblemContent(resultSet.getString("problemContent"));
+        problem.setProblemTestCase(resultSet.getString("problemTestCase"));
+        problem.setProblemTestCaseAnswer(resultSet.getString("problemTestCaseAnswer"));
+        problem.setProblemInput(resultSet.getString("problemInput"));
+        problem.setProblemAnswer(resultSet.getString("problemAnswer"));
+        problem.setProblemInputDescription(resultSet.getString("problemInputDescription"));
+        problem.setProblemOutputDescription(resultSet.getString("problemOutputDescription"));
 
-//         return problem;
-//     }
-// }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+        return problem;
+    }
+}
