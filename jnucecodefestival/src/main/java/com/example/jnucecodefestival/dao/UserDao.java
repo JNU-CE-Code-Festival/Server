@@ -1,14 +1,19 @@
 package com.example.jnucecodefestival.dao;
 
+import com.example.jnucecodefestival.connectionmaker.ConnectionMaker;
 import com.example.jnucecodefestival.service.User;
 
 import java.sql.*;
 
 public class UserDao {
+    private ConnectionMaker connectionMaker;
+
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
+
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mariadb://172.18.102.128/programming_contest", "contest", "sslab08295860");
+        Connection connection = connectionMaker.makeConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "select * from users where id = ?");
