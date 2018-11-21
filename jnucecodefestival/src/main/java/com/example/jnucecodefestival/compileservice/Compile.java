@@ -10,9 +10,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.io.Writer;
 
 public class Compile {
+    private long timeout = 1;
     /**
      * compile
      * 
@@ -57,8 +59,6 @@ public class Compile {
         } catch(RuntimeException ioe) { 
             resultStringBuilder.append("????????? ??????????????????.");
         }
-        
-        System.out.println(resultStringBuilder.toString());
 
         return resultStringBuilder.toString().trim() != "" ? resultStringBuilder.toString() : "?????? ??????!";
     }
@@ -86,7 +86,11 @@ public class Compile {
                 
                 getOutputStringBuilder(sb, execute, false);
 
-                execute.waitFor();
+                if(!execute.waitFor(timeout, TimeUnit.SECONDS)) {
+                    execute.destroy();
+                    sb.setLength(0);
+                    throw new RuntimeException();
+                }
 
                 deleteFile(executeFilePath);
             } catch (Exception io) {
@@ -94,7 +98,7 @@ public class Compile {
             }
         };
 
-        startSubProcess(cRun);
+        startSubProcess(cRun, sb);
         return sb;
     }
 
@@ -120,7 +124,11 @@ public class Compile {
                 
                 getOutputStringBuilder(sb, execute, false);
 
-                execute.waitFor();
+                if(!execute.waitFor(timeout, TimeUnit.SECONDS)) {
+                    execute.destroy();
+                    sb.setLength(0);
+                    throw new RuntimeException();
+                }
 
                 deleteFile(executeFilePath);
             } catch (Exception io) {
@@ -128,7 +136,7 @@ public class Compile {
             }
         };
 
-        startSubProcess(cRun);
+        startSubProcess(cRun, sb);
         return sb;
     }
 
@@ -155,7 +163,11 @@ public class Compile {
 
                 getOutputStringBuilder(sb, execute, false);
 
-                execute.waitFor();
+                if(!execute.waitFor(timeout, TimeUnit.SECONDS)) {
+                    execute.destroy();
+                    sb.setLength(0);
+                    throw new RuntimeException();
+                }
 
                 deleteFile(filePath + "/" + "Main.class");
     
@@ -164,8 +176,7 @@ public class Compile {
             }
         };
 
-        startSubProcess(javaRun);
-        System.out.println(sb.toString());
+        startSubProcess(javaRun, sb);
         return sb;
     }
 
@@ -178,12 +189,18 @@ public class Compile {
                 new ProcessBuilder()
                 .command("node", filePath + "/" + fileName).start();
                 getOutputStringBuilder(sb, execute, false);
-            } catch (IOException io) {
+
+                if(!execute.waitFor(timeout, TimeUnit.SECONDS)) {
+                    execute.destroy();
+                    sb.setLength(0);
+                    throw new RuntimeException();
+                }
+            } catch (Exception io) {
                 throw new RuntimeException();
             }
         };
 
-        startSubProcess(jsRun);
+        startSubProcess(jsRun, sb);
 
         return sb;
     }
@@ -197,12 +214,17 @@ public class Compile {
                 new ProcessBuilder()
                 .command("python3", filePath + "/" + fileName).start();
                 getOutputStringBuilder(sb, execute, false);
-            } catch (IOException io) {
+                if(!execute.waitFor(timeout, TimeUnit.SECONDS)) {
+                    execute.destroy();
+                    sb.setLength(0);
+                    throw new RuntimeException();
+                }
+            } catch (Exception io) {
                 throw new RuntimeException();
             }
         };
 
-        startSubProcess(pyRun);
+        startSubProcess(pyRun, sb);
 
         return sb;
     }
@@ -230,7 +252,7 @@ public class Compile {
         File classFile = new File(filePath);
         if(classFile.exists()) {
             if(classFile.delete()) {
-                System.out.println("??????");
+                System.out.println("파일삭제완료");
             }
         }
     }
@@ -243,15 +265,17 @@ public class Compile {
             sb.append(line);
             sb.append(System.getProperty("line.separator"));
         }
-
+        br.close();
         return sb;
     }
 
-    private static void startSubProcess(Runnable runnable) {
+    private void startSubProcess(Runnable runnable, StringBuilder sb) {
         Thread build = new Thread(runnable);
         build.start();
         try {
             build.join();
-        } catch (InterruptedException io) {}
+        } catch (InterruptedException io) {
+            sb.append("런타임 에러!");
+        }
     }
 }

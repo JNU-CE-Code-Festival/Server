@@ -1,16 +1,24 @@
 .header {
     position: relative;
     background-color:#ffffff;
-    min-height: 60px;
+    min-height: 50px;
+    z-index: 3;
+    box-shadow: 0 0 10px #777777;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     padding-left: 20px;
     padding-right: 20px;
-    border-bottom: 0.5px solid #e7e7e7;
+    padding-bottom: 80px;
 }
 .logo {
+    background-image: url('/img/simbol.jpg');
+    background-color:'#777777';
+    background-position: center;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
 }
 
 .title {

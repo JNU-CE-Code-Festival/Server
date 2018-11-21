@@ -26,14 +26,14 @@
 
         <!----타이틀바입니다.-->
         <div class="Title">
-            <div class="has-animation animation-ltr" > 
+            <div class="has-animation animation-ltr"> 
             </div>
         </div>
 
         <!---여기는 로고바입니다.-->
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#"><img class="logo" src="/img/simbol.jpg" height="40"> 제주대학교 컴퓨터공학
+                <a class="navbar-brand" href="/"><img class="logo" src="/img/simbol.jpg" height="40"> 제주대학교 컴퓨터공학
                     전공 코드페스티벌</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,8 +42,8 @@
                 <div class="collapse navbar-collapse" id="navbar1">
                     <ul class="navbar-nav ml-auto">
 
-                        <li class="nav-item"><a class="nav-link" th:inline="text"> 반갑습니다.
-                                [[${#httpServletRequest.remoteUser}]] 님 </a></li>
+                        <li class="nav-item"><a class="nav-link" th:inline="text">
+                                [[${#httpServletRequest.remoteUser}]]</a></li>
                         <li>
                             <form th:action="@{/logout}" method="post">
                                 <input type="submit" class="btn ml-2 btn-warning" value="Sign Out" />
@@ -59,7 +59,7 @@
 
             <!---여기는 왼쪽 슬라이드입니다.-->
             <div class="left">
-                <div class="item">
+                <!-- <div class="item">
                     <i class="fas fa-fw fa-bars"></i> 문제
                 </div>
                 <div class="item active">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="item">
                     <i class="fas fa-fw fa-user-circle"></i> 큐
-                </div>
+                </div> -->
             </div>
             <!--문제가 출제될 공간입니다.-->
             <div class="content slideRight">
@@ -81,19 +81,18 @@
 
                     <!--문제 제목입니다.-->
                     <div class="Qname">
+<<<<<<< HEAD
                         <h1 th:text="${problem}">문제1</h1>
+=======
+                        <h1 th:text="${problemTitle}"> 문제1</h1>
+>>>>>>> 3f675727b6a48f7cc0de89b06eabf3b50c58003e
                     </div>
 
                     <!--문제 내용입니다.-->
                     <div class="main">
-                        <p> ;</p>
-                        <p>6 ;</p>
-                        <p>5 );</p>
-                        <p>4 );</p>
-                        <p>3 2);</p>
-                        <p>2 w);</p>
-                        <p>2 );</p>
-                        <p>1</p>
+                        <div th:text="${problemContent}"></div>
+                        <div th:text="${problemInputDescription}"></div>
+                        <div th:text="${problemOutputDescription}"></div>
                     </div>
                 </div>
             </div>
