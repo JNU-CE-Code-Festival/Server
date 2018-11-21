@@ -62,6 +62,11 @@ select.lang > .lang-val {
   width: 100%;
 
 }
+.code_editor{
+  flex: auto;
+
+
+}
 
 .selectLanguage{
 text-align: right;
@@ -126,6 +131,7 @@ background-color: #343a40;
         display: flex;
         flex: 2;
         border-width: 1px;
+        flex-direction: column;
     }
 
     .left:hover {
