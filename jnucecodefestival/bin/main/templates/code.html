@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>컴퓨터공학전공 코딩 대회</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/codeMain.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" >
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/show-hint.css">
+    <link rel="stylesheet" href="/css/darcula.css">
+    <script src="/javascripts/templateCode.js"></script>
+    <script src="/javascripts/codemirror.js"></script>
+    <script src="/javascripts/continuecomment.js"></script>
+    <script src="/javascripts/matchbrackets.js"></script>
+    <script src="/javascripts/templateCode.js"></script>
+    <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
+    <script src="http://codemirror.net/mode/clike/clike.js"></script>
+    <script src="http://codemirror.net/mode/python/python.js"></script>
+    <script src="/javascripts/codemirrorSettings.js"></script>
+</head>
+<body>
+    <div class="header">
+        <p class="logo"></p>
+        <!-- <h1 class="title">제주대학교 코드 페스티벌</h1> -->
+        <div class="user">
+            <p class="username">브라운</p>
+            <a class="logout" href='#'>로그아웃</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box left">
+            <div class="problem-title"> 문제 </div>
+            <hr>
+            <div class="problem-content"> 입력 </div>
+        </div>
+        <div class="right">
+            <div class="code_editor slideLeft box" >
+                <div class="selLanguage">
+                    <select onchange="onLangChange()" name="language" class="lang">
+                        <option class="lang-val" value="c">C</option>
+                        <option class="lang-val" value="cpp">C++</option>
+                        <option class="lang-val" value="java">JAVA</option>
+                        <option class="lang-val" value="js">JavaScript</option>
+                        <option class="lang-val" value="py">Python3</option>
+                    </select>
+                </div>
+                <div id='textbox'></div>
+            </div>
+            <div class="box terminal">
+                <div class="result">
+                </div>
+                <div class="bottom-bar">
+                    <button id="testCase" class="submit">테스트 케이스 제출</button>
+                    <button id="submitCode" class="submit">실행</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/javascripts/templateChange.js"></script>
+</body>
+</html>
