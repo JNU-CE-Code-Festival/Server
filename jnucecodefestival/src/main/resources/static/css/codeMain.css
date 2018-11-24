@@ -31,6 +31,7 @@ body {
     margin-right:10px;
     overflow: scroll;
     border-bottom-right-radius: 0px;
+    padding: 10px;
 }
 .right {
     flex: 2;
@@ -58,11 +59,20 @@ body {
 .problem-title {
     display:inline;
     color:#e7e7e7;
-    font-size: 34pt;
+    font-size:24pt;
     text-align:center;
     padding: 10px;
 }
+hr {
+    width: 100%;
+    border: 0.5px solid #000000;
+    margin-bottom:10px;
+}
 
+.problem-content {
+    padding: 10px;
+    color: #aaaaaa;
+}
 .code_editor {
     height: inherit;
     border:0;
@@ -99,6 +109,7 @@ background-color: #343a40;
     flex: 1;
     color: #f7f7f7;
     padding: 10px;
+    font-size:14pt;
 }
 .bottom-bar {
     padding: 5px 10px;
@@ -110,7 +121,27 @@ background-color: #343a40;
 
 .submit {
     font-size:14pt;
-    font-weight: 100;
     border: 0;
     margin-left: 10px;
+    background-color: #343a40;
+    border-radius:5px;
+    color: #ffffff;
+    box-shadow: 0 2px 5px #000000;
+}
+
+button:focus {
+    outline: 0;
+}
+
+.sub-title {
+    border-bottom: 0.5px solid #878787;
+    width: 30%;
+    margin: 10px 0;
+}
+
+.sub-title-text {
+    color: #d7d7d7;
+    font-size: 16pt;
+    font-weight: bold;
+    border-bottom: 2px solid #00bb00;
 }

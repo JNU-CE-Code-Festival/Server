@@ -30,14 +30,14 @@ public class CodeController {
         if(grade.get("grade").toString().equals(problem.get("grade").toString())) {
             model.addAttribute("problemTitle", problem.get("problemTitle"));
             model.addAttribute("problemContent", problem.get("problemContent"));
-            model.addAttribute("problemInputDescription", problem.get("problemInputDescription"));
-            model.addAttribute("problemOutputDescription", problem.get("problemOutputDescription"));
+            model.addAttribute("problemInputDescription", problem.get("problemInputDescription") != null ? problem.get("problemInputDescription") : "없음");
+            model.addAttribute("problemOutputDescription", problem.get("problemOutputDescription") != null ? problem.get("problemOutputDescription") : "없음");
         } else {
             return "403";
         }
         System.out.println(problem.toString());
         
 
-        return "main";
+        return "code";
     }
 }

@@ -46,5 +46,3 @@ submitCode.addEventListener('mousedown', function(event) {
         .then(data => data.text())
         .then(compile => resultBlock.innerText = compile);
 });
-
-onLangChange();
