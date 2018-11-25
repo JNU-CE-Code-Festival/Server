@@ -22,7 +22,7 @@ public class Compile {
      * @param createAuthor String ???. 
      * @return
      */
-    public static String compile(final String lang, final String createAuthor, final String code, final String number, final String grade) {
+    public static String compile(final String lang, final String createAuthor, final String code, final String number, final int grade) {
         StringBuilder resultStringBuilder = new StringBuilder();
         Compile compile = new Compile();
 

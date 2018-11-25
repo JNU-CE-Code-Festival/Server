@@ -1,5 +1,7 @@
 package com.example.jnucecodefestival.compileservice;
 
+import static org.mockito.ArgumentMatchers.booleanThat;
+
 import java.util.Map;
 
 import com.example.jnucecodefestival.model.CompileRequest;
@@ -35,15 +37,28 @@ public class CompileController {
         produces= "application/json"
     )
     @ResponseBody
-    public String postCompile(@RequestBody CompileRequest code) {
+    public String postCompile(@RequestBody CompileRequest code) throws Exception{
+        Grade userGrade = null;
+        
         String getGradeQuery = 
         "select grade from users where username=\'" + code.getCreateAuthor() + "\'";
-        String grade = jdbcTemplate.queryForMap(getGradeQuery).get("grade").toString();
+        int grade = Integer.parseInt(jdbcTemplate.queryForMap(getGradeQuery).get("grade").toString());
+        
 
-        Grade userGrade = null;
-
-        System.out.println(grade);
-        switch(grade) {}
+        System.out.println(grade + "학년입니다.");
+        switch(grade) {
+            case 1:
+                userGrade = new FirstGrade();
+                break;
+            case 2:
+                userGrade = new SecondGrade();
+                break;
+            case 3:
+                userGrade = new ThirdGrade();
+                break;
+            default:
+                break;
+        }
         Object result = Compile.compile(code.getLanguage(), code.getCreateAuthor(), code.getCode(), code.getNumber(), grade);
 
         // try {
