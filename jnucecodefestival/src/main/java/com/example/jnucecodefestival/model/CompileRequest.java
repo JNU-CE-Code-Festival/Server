@@ -11,7 +11,8 @@ public class CompileRequest {
     private String language;
     @JsonProperty("createAuthor")
     private String createAuthor;
-
+    @JsonProperty("number")
+    private String number;
 
     public String getCode() {
         return code;
@@ -23,6 +24,10 @@ public class CompileRequest {
 
     public String getCreateAuthor() {
         return createAuthor;
+    }
+
+    public String getNumber() {
+        return number;
     }
 
     public void setCode(String code) {
@@ -37,6 +42,9 @@ public class CompileRequest {
         this.createAuthor = createAuthor;
     }
 
+    public void setNumber(String number) {
+        this.number = number;
+    }
     @Override
     public String toString() {
         return String.format("CompileRequest : { code : %s , language : %s, author : %s }", code, language, createAuthor);

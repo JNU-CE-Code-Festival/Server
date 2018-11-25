@@ -22,12 +22,12 @@ public class Compile {
      * @param createAuthor String ???. 
      * @return
      */
-    public static String compile(final String lang, final String createAuthor, final String code) {
+    public static String compile(final String lang, final String createAuthor, final String code, final String number, final String grade) {
         StringBuilder resultStringBuilder = new StringBuilder();
         Compile compile = new Compile();
 
         // ?????? ?????? ?????? ?????? : compile/?????????14/?????????14-2018-11-10.java
-        String filePath = "compile/" + createAuthor + "/" + lang;
+        String filePath = "compile/" + createAuthor + "/" + number + "/" + lang;
         String fileName = createAuthor + "-" + new SimpleDateFormat("yy-MM-dd-kk-mm-ss").format(new Date()) + "." + lang;
 
         compile.hasFolder(filePath);

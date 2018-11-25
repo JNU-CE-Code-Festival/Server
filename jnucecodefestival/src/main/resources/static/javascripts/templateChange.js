@@ -39,7 +39,8 @@ submitCode.addEventListener('mousedown', function(event) {
             'body': JSON.stringify({
                 'code': code,
                 'createAuthor': username,
-                'language' : langSel.value
+                'language' : langSel.value,
+                'number' : new URL(window.location.href).searchParams.get("number")
             }),
         }
         )
