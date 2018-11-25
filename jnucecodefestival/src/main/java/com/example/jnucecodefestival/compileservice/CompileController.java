@@ -46,33 +46,29 @@ public class CompileController {
         switch(grade) {}
         Object result = Compile.compile(code.getLanguage(), code.getCreateAuthor(), code.getCode(), code.getNumber(), grade);
 
-        try {
-            String getAnswerQuery = 
-            "select problemAnswer from problem where grade=(select grade from users where username=\'"
-             + code.getCreateAuthor() +
-             "\') and problemNum=\'" + code.getNumber() + "\'";
-            Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery);
-            System.out.println(result);
-            System.out.println(expectedOutput.get("problemAnswer") + "입니다.");
+        // try {
+        //     String getAnswerQuery = 
+        //     "select problemAnswer from problem where grade=(select grade from users where username=\'"
+        //      + code.getCreateAuthor() +
+        //      "\') and problemNum=\'" + code.getNumber() + "\'";
+        //     Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery);
+        //     System.out.println(result);
+        //     System.out.println(expectedOutput.get("problemAnswer") + "입니다.");
 
-            if(expectedOutput.get("problemAnswer").toString().trim().equals(result.toString().trim())) {
-                return "정답!";
-            } else {
-                return "틀렸습니다!";
-            }
-        } catch (DataAccessException e) {
-            System.out.println("바보");
-            e.printStackTrace();
-        }
+        //     if(expectedOutput.get("problemAnswer").toString().trim().equals(result.toString().trim())) {
+        //         return "정답!";
+        //     } else {
+        //         return "틀렸습니다!";
+        //     }
+        // } catch (DataAccessException e) {
+        //     System.out.println("바보");
+        //     e.printStackTrace();
+        // }
 
 
         
         
         // System.out.println(code.toString());
         return result.toString();
-    }
-
-    private void problemoneunderone() {
-
     }
 }
