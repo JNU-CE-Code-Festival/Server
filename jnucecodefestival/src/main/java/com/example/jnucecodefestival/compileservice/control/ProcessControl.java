@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
 
 public class ProcessControl {
-
+    public static final long TIME_OUT = 1;
+    
     public static StringBuilder compileProcess(StringBuilder sb, String filePath, String fileName, String lang, String input) throws Exception {    
         String executeFilePath = null;
         String[] command;
@@ -55,6 +57,7 @@ public class ProcessControl {
 
         getOutputStringBuilder(sb, compileProcess, true);
         compileProcess.waitFor();
+        compileProcess.destroy();
         return sb;
     }
 
@@ -90,8 +93,16 @@ public class ProcessControl {
 
         getOutputStringBuilder(sb, executeProcess, false);
 
-        executeProcess.waitFor();
-        executeProcess.destroy();
+        if(!executeProcess.waitFor(TIME_OUT, TimeUnit.SECONDS)) {
+            executeProcess.getErrorStream().close();
+            executeProcess.getInputStream().close();
+            executeProcess.getOutputStream().close();
+            executeProcess.destroy();
+            
+            sb.setLength(0);
+            sb.append("런타임 에러!");
+        };
+        
         
         // Global except JAVA
         FileControl.deleteFile(executeFilePath);
