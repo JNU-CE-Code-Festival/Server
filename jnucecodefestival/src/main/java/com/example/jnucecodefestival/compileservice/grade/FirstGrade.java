@@ -1,14 +1,31 @@
 package com.example.jnucecodefestival.compileservice.grade;
 
-public class FirstGrade implements Grade {
+import com.example.jnucecodefestival.compileservice.control.ProcessControl;
 
-    public void solveProblemOne() {
+public class FirstGrade extends Grade {
 
+    public FirstGrade(String filePath, String fileName, String lang, int problemNum, String input) {
+        super(filePath, fileName, lang, problemNum, input);
     }
-    public void solveProblemTwo() {
+
+    @Override
+    protected void solveProblemOne() {
+        try {
+            resultStringBuilder = ProcessControl.executeProcess(resultStringBuilder, filePath, getExecuteFilePath());
+            System.out.println("Hello!");
+        } catch(Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    protected void solveProblemTwo() {
         
     }
-    public void solveProblemThree() {
+
+    @Override
+    protected void solveProblemThree() {
 
     }
+
 }

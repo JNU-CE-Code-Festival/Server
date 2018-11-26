@@ -2,8 +2,8 @@ var template = {
     java: `// 필요한 경우 주석을 풀고 사용하세요.
 // import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
+public class Solution {
+    public void solution() {
         // 여기에 코드를 작성하세요.
     }
 }`,

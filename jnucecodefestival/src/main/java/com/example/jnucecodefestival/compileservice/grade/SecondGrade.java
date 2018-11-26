@@ -1,14 +1,23 @@
 package com.example.jnucecodefestival.compileservice.grade;
 
-public class SecondGrade implements Grade {
+import java.util.concurrent.TimeUnit;
 
-    public void solveProblemOne() {
+public class SecondGrade extends Grade {
 
+    public SecondGrade(String filePath, String fileName, String lang, int problemNum, String problemInput) {
+        super(filePath, fileName, lang, problemNum, problemInput);
     }
-    public void solveProblemTwo() {
+
+    @Override
+    protected void solveProblemOne() {
         
     }
-    public void solveProblemThree() {
+    @Override
+    protected void solveProblemTwo() {
+        
+    }
+    @Override
+    protected void solveProblemThree() {
 
     }
 }

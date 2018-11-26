@@ -1,0 +1,40 @@
+package com.example.jnucecodefestival.compileservice.control;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+public class FileControl {
+    
+    public static void hasFolder(final String filePath) {
+        File targetDir = new File(filePath);
+        if(!targetDir.exists()) targetDir.mkdirs();
+    }
+
+    public static void makeFile(final String filePath, final String fileName, final String code) {
+        Writer writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath + "/" + fileName), "UTF-8"));
+            writer.write(code);
+        } catch (IOException ex) {
+            System.out.println("파일 생성중 문제 발생!!");
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException ex) {}
+        }
+    }
+
+    public static void deleteFile(String filePath) {
+        File classFile = new File(filePath);
+        if(classFile.exists()) {
+            if(classFile.delete()) {
+                System.out.println("파일삭제완료");
+            }
+        }
+    }
+
+}
