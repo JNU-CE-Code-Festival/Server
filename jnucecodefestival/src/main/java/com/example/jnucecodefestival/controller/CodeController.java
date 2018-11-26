@@ -31,6 +31,7 @@ public class CodeController {
             model.addAttribute("problemContent", problem.get("problemContent"));
             model.addAttribute("problemInputDescription", problem.get("problemInputDescription") != null ? problem.get("problemInputDescription") : "없음");
             model.addAttribute("problemOutputDescription", problem.get("problemOutputDescription") != null ? problem.get("problemOutputDescription") : "없음");
+            model.addAttribute("template", problem.get("template").toString());
         } else {
             return "403";
         }

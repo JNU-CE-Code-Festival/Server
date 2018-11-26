@@ -55,8 +55,6 @@ public abstract class Grade {
             case 3:         solveProblemThree();    break;
             default:                                break;
         }
-
-        resultStringBuilder.append("양호");
         return resultStringBuilder;
     }
 

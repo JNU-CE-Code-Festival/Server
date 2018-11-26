@@ -6,12 +6,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class FileControl {
     
-    public static void hasFolder(final String filePath) {
+    public static void hasFolder(final String filePath, final int grade, final String number, final String lang) throws IOException {
         File targetDir = new File(filePath);
-        if(!targetDir.exists()) targetDir.mkdirs();
+        if(!targetDir.exists()) {
+            targetDir.mkdirs();
+            String extension = lang.equals("c") || lang.equals("cpp") ? "o" : lang;
+            // ex) compile/template/1/2.py
+            String originLocation = "compile/template/" + grade + "/" + lang + "/" + number + "." + extension;
+            copyTemplateFile(originLocation, filePath + "/Main." + extension);
+        }
     }
 
     public static void makeFile(final String filePath, final String fileName, final String code) {
@@ -35,6 +43,12 @@ public class FileControl {
                 System.out.println("파일삭제완료");
             }
         }
+    }
+
+    private static void copyTemplateFile(String origin, String destination) throws IOException {
+        File originFile = new File(origin);
+        File destinationFile = new File(destination);
+        Files.copy(originFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
 }

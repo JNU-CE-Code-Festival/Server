@@ -1,5 +1,6 @@
 package com.example.jnucecodefestival.compileservice.grade;
 
+import com.example.jnucecodefestival.compileservice.control.FileControl;
 import com.example.jnucecodefestival.compileservice.control.ProcessControl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class FirstGrade extends Grade {
                 getExecuteFilePath(),
                 lang,
                 problemInput.split(","));
-            System.out.println("Hello!진짜로????진짜로??????");
         } catch(Exception e) {
             throw new RuntimeException();
         }
@@ -30,7 +30,7 @@ public class FirstGrade extends Grade {
     @Override
     protected void solveProblemTwo() {
         try {
-            resultStringBuilder = ProcessControl.executeProcess(resultStringBuilder, filePath, getExecuteFilePath(), String, null);
+            resultStringBuilder = ProcessControl.executeProcess(resultStringBuilder, filePath, getExecuteFilePath(), lang, null);
         } catch(Exception e) {
             throw new RuntimeException();
         }

@@ -19,14 +19,14 @@ public class Compile {
      * @return
      */
     @Async("threadPoolTaskExecutor")
-    public static Future<Boolean> compile(final String lang, final String createAuthor, final String code, final String number, final int grade, final String input) throws Exception {
+    public static Future<String> compile(final String lang, final String createAuthor, final String code, final String number, final int grade, final String input) throws Exception {
         Grade userGrade = null;
 
         // set FileLocation ex) compile/?????????14/?????????14-2018-11-10.java
         String filePath = "compile/" + createAuthor + "/" + number + "/" + lang;
         String fileName = createAuthor + "-" + new SimpleDateFormat("yy-MM-dd-kk-mm-ss").format(new Date()) + "." + lang;
 
-        FileControl.hasFolder(filePath);
+        FileControl.hasFolder(filePath, grade, number, lang);
         FileControl.makeFile(filePath, fileName, code);
 
         // if extensions of file is java, make file that name is solution
@@ -41,9 +41,7 @@ public class Compile {
         }
 
         String result = userGrade.solve().toString().trim();
-        System.out.println(result+ "입니다.");
-        // return resultStringBuilder.toString().trim() != "" ? resultStringBuilder.toString() : "?????? ??????!";
-        return new AsyncResult<Boolean>(true);
+        return new AsyncResult<String>(result);
     }
 
     

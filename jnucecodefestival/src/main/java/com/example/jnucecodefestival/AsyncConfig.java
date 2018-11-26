@@ -18,6 +18,7 @@ public class AsyncConfig {
         taskExecutor.setMaxPoolSize(30);
         taskExecutor.setQueueCapacity(10);
         taskExecutor.setThreadNamePrefix("Executor-");
+        taskExecutor.setKeepAliveSeconds(1);
         taskExecutor.initialize();
         return taskExecutor;
     }

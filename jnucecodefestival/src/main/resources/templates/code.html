@@ -16,11 +16,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <link rel="stylesheet" href="/css/codemirror.css">
     <link rel="stylesheet" href="/css/show-hint.css">
     <link rel="stylesheet" href="/css/darcula.css">
-    <script src="/javascripts/templateCode.js"></script>
+    <!-- <script src="/javascripts/templateCode.js"></script> -->
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        var template = JSON.parse(/*[[${template}]]*/);
+    /*]]>*/
+    </script>
     <script src="/javascripts/codemirror.js"></script>
     <script src="/javascripts/continuecomment.js"></script>
     <script src="/javascripts/matchbrackets.js"></script>
-    <script src="/javascripts/templateCode.js"></script>
     <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
     <script src="http://codemirror.net/mode/clike/clike.js"></script>
     <script src="http://codemirror.net/mode/python/python.js"></script>

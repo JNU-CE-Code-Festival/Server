@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
 
@@ -29,7 +28,7 @@ public class ProcessControl {
                 if(sb.length() != 0) return sb;
 
                 executeFilePath = filePath + "/a.out";
-                command = new String[] {"gcc", filePath + "/main.o", filePath + "/solution.o", "-o", executeFilePath};
+                command = new String[] {"gcc", filePath + "/Main.o", filePath + "/solution.o", "-o", executeFilePath};
                 break;
             case "cpp":         
                 executeFilePath = filePath + "/solution.o";
@@ -44,10 +43,10 @@ public class ProcessControl {
                 subCompileProcess.destroy();
 
                 executeFilePath = filePath + "/a.out";
-                command = new String[] {"g++", filePath + "/main.o", filePath + "/solution.o", "-o", executeFilePath};
+                command = new String[] {"g++", filePath + "/Main.o", filePath + "/solution.o", "-o", executeFilePath};
                 break;
             case "java":
-                command = new String[] {"javac", "-cp", filePath, "-encoding", "UTF-8",  filePath + "/" + "Main.java"};
+                command = new String[] {"javac", filePath + "/" + "Main.java", "-cp", filePath, "-encoding", "UTF-8"};
                 break;
             default:
                 return sb;
@@ -59,19 +58,51 @@ public class ProcessControl {
         return sb;
     }
 
-    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath, String lang, String[] inputParameter) {
+    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath, String lang, String[] inputParameter) throws Exception {
 
         String[] command = null;
         if(inputParameter == null) {
             switch (lang) {
-                case "c": command = new String[] {"bash", "-c", executeFilePath};
-                default: break;
+                case "c":       command = new String[] {"bash", "-c", executeFilePath};                             break;
+                case "cpp":     command = new String[] {"bash", "-c", executeFilePath};                             break;
+                case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main"};      break;
+                case "js":      command = new String[] {"node", executeFilePath};                                   break;
+                case "py":      command = new String[] {"python3", executeFilePath};                                break;
+                default:                                                                                            break;
             }
         } else {
             for (String input : inputParameter) {
-                
+                switch (lang) {
+                    case "c":       command = new String[] {"bash", "-c", executeFilePath, input};                             break;
+                    case "cpp":     command = new String[] {"bash", "-c", executeFilePath, input};                             break;
+                    case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", input};      break;
+                    case "js":      command = new String[] {"node", executeFilePath, input};                                   break;
+                    case "py":      command = new String[] {"python3", executeFilePath, input};                                break;
+                    default:                                                                                                   break;
+                }
             }
         }
+
+        Process executeProcess =
+        new ProcessBuilder()
+        .command(command)
+        .start();
+
+        getOutputStringBuilder(sb, executeProcess, false);
+
+        executeProcess.waitFor();
+        executeProcess.destroy();
+        
+        // Global except JAVA
+        FileControl.deleteFile(executeFilePath);
+
+        // for JAVA
+        FileControl.deleteFile(filePath + "/Main.class");
+        FileControl.deleteFile(filePath + "/Solution.class");
+
+        // for C, C++
+        FileControl.deleteFile(filePath + "/solution.o");
+         
         return sb;
     }
 
@@ -86,18 +117,4 @@ public class ProcessControl {
         br.close();
         return sb;
     }
-
-        // public static void startSubProcess(Runnable runnable, StringBuilder sb) {
-    //     Thread build = new Thread(runnable);
-    //     build.start();
-    //     try {
-    //         build.join();
-    //     } catch (InterruptedException io) {
-    //         sb.append("런타임 에러!");
-    //     }
-    // }
-
-    // public static void stopSubProcess() {
-
-    // }
 }

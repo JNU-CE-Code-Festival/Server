@@ -1,8 +1,11 @@
 package com.example.jnucecodefestival.compileservice;
 
+import java.util.Map;
+
 import com.example.jnucecodefestival.model.CompileRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +44,7 @@ public class CompileController {
         
         Object problemInputObject = jdbcTemplate.queryForMap(getProblemInputQuery).get("problemInput");
         String problemInput = problemInputObject != null ? problemInputObject.toString() : "";
-        boolean result = 
+        String result = 
         Compile
             .compile(
                 code.getLanguage(), 
@@ -51,31 +54,24 @@ public class CompileController {
                 grade, 
                 problemInput
             )
-            .get();
+            .get().trim();
 
-        // try {
-        //     String getAnswerQuery = 
-        //     "select problemAnswer from problem where grade=(select grade from users where username=\'"
-        //      + code.getCreateAuthor() +
-        //      "\') and problemNum=\'" + code.getNumber() + "\'";
-        //     Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery);
-        //     System.out.println(result);
-        //     System.out.println(expectedOutput.get("problemAnswer") + "입니다.");
+        String answer = getAnswerFromDataBase(code);
 
-        //     if(expectedOutput.get("problemAnswer").toString().trim().equals(result.toString().trim())) {
-        //         return "정답!";
-        //     } else {
-        //         return "틀렸습니다!";
-        //     }
-        // } catch (DataAccessException e) {
-        //     System.out.println("바보");
-        //     e.printStackTrace();
-        // }
+        if(result.equals(answer)) {
 
+        }
 
+        return result.equals(answer) ? result + " " + answer + " 정답!": result + " " + answer + "실패 !";
+    }
+
+    private String getAnswerFromDataBase(CompileRequest code) throws DataAccessException {
+        String getAnswerQuery = 
+        "select problemAnswer from problem where grade=(select grade from users where username=\'"
+        + code.getCreateAuthor() +
+        "\') and problemNum=\'" + code.getNumber() + "\'";
+        Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery);
         
-        
-        // System.out.println(code.toString());
-        return result ? "정답!" : "틀림!";
+        return expectedOutput.get("problemAnswer").toString().trim();
     }
 }
