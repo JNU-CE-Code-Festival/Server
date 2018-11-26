@@ -1,0 +1,13 @@
+Timestamp date = new Timestamp(System.currentTimeMillis());
+        Rank rank = new Rank();
+        rank.setId(0);
+        rank.setUserName("최원범");
+        rank.setProblemNum(1);
+        rank.setSubmitCount(10);
+        rank.setTimeStamp(date);
+        rank.setLanguage("Python");
+        rank.setScore(false);
+        RankingDao rankingDao = new RankingDao();
+        rankingDao.add(rank);
+
+        System.out.println(rank.getTimeStamp().toString());
