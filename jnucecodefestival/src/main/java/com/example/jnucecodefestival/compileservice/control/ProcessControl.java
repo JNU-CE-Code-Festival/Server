@@ -10,30 +10,41 @@ import org.springframework.security.config.method.GlobalMethodSecurityBeanDefini
 
 public class ProcessControl {
 
-    
     public static StringBuilder compileProcess(StringBuilder sb, String filePath, String fileName, String lang, String input) throws Exception {    
         String executeFilePath = null;
         String[] command;
+        Process subCompileProcess = null;
         switch(lang) {
             case "c":            
                 executeFilePath = filePath + "/solution.o";
-                command = new String[] {"gcc", "-c", filePath + "/" + fileName, "-o", filePath + "/solution.o"};
-                Process subCompileProcess = 
+                command = new String[] {"gcc", "-c", filePath + "/" + fileName, "-o", executeFilePath, "-O2"};
+                subCompileProcess = 
                 new ProcessBuilder()
                 .command(command)
                 .start();
 
                 getOutputStringBuilder(sb, subCompileProcess, true);
                 subCompileProcess.waitFor();
-
+                subCompileProcess.destroy();
                 if(sb.length() != 0) return sb;
 
                 executeFilePath = filePath + "/a.out";
-                command = new String[] {"gcc", "-O2", filePath + "/" + fileName, "-o", executeFilePath};
+                command = new String[] {"gcc", filePath + "/main.o", filePath + "/solution.o", "-o", executeFilePath};
                 break;
             case "cpp":         
+                executeFilePath = filePath + "/solution.o";
+                command = new String[] {"g++", "-c", "-std=c++11", "-O2", "-Wno-unused-result", filePath + "/" + fileName, "-o", executeFilePath};
+                subCompileProcess = 
+                new ProcessBuilder()
+                .command(command)
+                .start();
+
+                getOutputStringBuilder(sb, subCompileProcess, true);
+                subCompileProcess.waitFor();
+                subCompileProcess.destroy();
+
                 executeFilePath = filePath + "/a.out";
-                command = new String[] {"g++", "-std=c++11", "-O2", "-Wno-unused-result", filePath + "/" + fileName, "-o", executeFilePath};
+                command = new String[] {"g++", filePath + "/main.o", filePath + "/solution.o", "-o", executeFilePath};
                 break;
             case "java":
                 command = new String[] {"javac", "-cp", filePath, "-encoding", "UTF-8",  filePath + "/" + "Main.java"};
@@ -41,8 +52,6 @@ public class ProcessControl {
             default:
                 return sb;
         }
-
-        System.out.println(Arrays.toString(command) + "명령어입니다.");
         Process compileProcess = new ProcessBuilder().command(command).start();
 
         getOutputStringBuilder(sb, compileProcess, true);
@@ -50,8 +59,19 @@ public class ProcessControl {
         return sb;
     }
 
-    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath) {
+    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath, String lang, String[] inputParameter) {
 
+        String[] command = null;
+        if(inputParameter == null) {
+            switch (lang) {
+                case "c": command = new String[] {"bash", "-c", executeFilePath};
+                default: break;
+            }
+        } else {
+            for (String input : inputParameter) {
+                
+            }
+        }
         return sb;
     }
 

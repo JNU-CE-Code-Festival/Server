@@ -29,10 +29,8 @@ public class Compile {
         FileControl.hasFolder(filePath);
         FileControl.makeFile(filePath, fileName, code);
 
-        // if extensions of file is java, make file name solution
+        // if extensions of file is java, make file that name is solution
         if(lang.equals("java")) FileControl.makeFile (filePath, "Solution.java", code);
-        
-        System.out.println(grade + "학년입니다.");
 
         // get UserGrade;
         switch(grade) {
