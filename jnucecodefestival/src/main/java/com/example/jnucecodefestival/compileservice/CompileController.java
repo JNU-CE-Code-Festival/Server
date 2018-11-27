@@ -39,38 +39,49 @@ public class CompileController {
         "select grade from users where username=\'" + code.getCreateAuthor() + "\'";
         int grade = Integer.parseInt(jdbcTemplate.queryForMap(getGradeQuery).get("grade").toString());
         
-        String getProblemInputQuery =
-        "select problemInput from problem where problemNum=\'" + code.getNumber() + "\'";
-        
-        Object problemInputObject = jdbcTemplate.queryForMap(getProblemInputQuery).get("problemInput");
+        // String getProblemInputQuery =
+        // "select problemInput, needMultiLine from problem where problemNum=\'" + code.getNumber() + "\'";
+        String getProblemInputQuery = 
+        "Select problemInput, needMultiLine from problem where problemNum = ?";
+        Map<String, Object> queryResult = jdbcTemplate.queryForMap(getProblemInputQuery, code.getNumber());
+        Object problemInputObject = queryResult.get("problemInput");
         String problemInput = problemInputObject != null ? problemInputObject.toString() : "";
+        boolean needMultiLine = (Boolean) queryResult.get("needMultiLine");
+        String problemNum = Integer.toString(Integer.parseInt(code.getNumber()) % 3);
         String result = 
         Compile
             .compile(
                 code.getLanguage(), 
                 code.getCreateAuthor(), 
                 code.getCode(), 
-                code.getNumber(), 
+                problemNum,
                 grade, 
-                problemInput
+                problemInput,
+                needMultiLine
             )
             .get().trim();
 
-        String answer = getAnswerFromDataBase(code);
+        String answer = getAnswerFromDataBase(code, problemNum);
 
-        if(result.equals(answer)) {
-
+        int score = result.equals(answer) ? 1 : 0;
+        
+        try {
+            jdbcTemplate.update("Update solve set language = ?, score = ?, submitCount=submitCount+1 where userName = ? and problemNum = ?", code.getLanguage(), score, code.getCreateAuthor(), problemNum);
+        } catch( DataAccessException dae) {
+            jdbcTemplate.update("Insert into solve(username, problemNum, submitCount, timeStamp, language, score) values(?,?,?,?,?,?)", code.getCreateAuthor(), problemNum, 1, new Timestamp(System.currentTimeMillis()), code.getLanguage(), score)
         }
+        
+
 
         return result.equals(answer) ? result + " " + answer + " 정답!": result + " " + answer + "실패 !";
     }
 
-    private String getAnswerFromDataBase(CompileRequest code) throws DataAccessException {
+    private String getAnswerFromDataBase(CompileRequest code, String problemNum) throws DataAccessException {
         String getAnswerQuery = 
-        "select problemAnswer from problem where grade=(select grade from users where username=\'"
-        + code.getCreateAuthor() +
-        "\') and problemNum=\'" + code.getNumber() + "\'";
-        Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery);
+        "select problemAnswer from problem where grade=(select grade from users where username=? and problemNum=?";
+        // + code.getCreateAuthor() +
+        // "\') and problemNum=\'" + code.getNumber() + "\'";
+        Map<String, Object> expectedOutput = jdbcTemplate.queryForMap(getAnswerQuery, code.getCreateAuthor(), problemNum);
         
         return expectedOutput.get("problemAnswer").toString().trim();
     }

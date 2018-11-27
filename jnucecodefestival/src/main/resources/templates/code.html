@@ -46,11 +46,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
             <div class="problem-title" th:text="${problemTitle}"> 문제 </div>
             <hr>
             <div class="sub-title"><span class="sub-title-text">문제</span></div>
-            <p class="problem-content" th:text="${problemContent}"></p>
+            <div class="problem-content" th:text="${problemContent}"></div>
             <div class="sub-title"><span class="sub-title-text">입력</span></div>
-            <p class="problem-content" th:text="${problemInputDescription}"></p>
+            <div class="problem-content" th:text="${problemInputDescription}"></div>
             <div class="sub-title"><span class="sub-title-text">출력</span></div>
-            <p class="problem-content" th:text="${problemOutputDescription}"></p>
+            <div class="problem-content" th:text="${problemOutputDescription}"></div>
         </div>
         <div class="right">
             <div class="code_editor slideLeft box" >

@@ -6,8 +6,8 @@ import org.junit.rules.Timeout;
 
 public class ThirdGrade extends Grade {
 
-    public ThirdGrade(String filePath, String fileName, String lang, int problemNum, String problemInput) {
-        super(filePath, fileName, lang, problemNum, problemInput);
+    public ThirdGrade(String filePath, String fileName, String lang, int problemNum, String problemInput, boolean needMultiLine) {
+        super(filePath, fileName, lang, problemNum, problemInput, needMultiLine);
     }
 
     @Override

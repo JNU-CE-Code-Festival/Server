@@ -19,7 +19,7 @@ public class Compile {
      * @return
      */
     @Async("threadPoolTaskExecutor")
-    public static Future<String> compile(final String lang, final String createAuthor, final String code, final String number, final int grade, final String input) throws Exception {
+    public static Future<String> compile(final String lang, final String createAuthor, final String code, final String number, final int grade, final String input, final boolean needMultiLine) throws Exception {
         Grade userGrade = null;
 
         // set FileLocation ex) compile/?????????14/?????????14-2018-11-10.java
@@ -34,9 +34,9 @@ public class Compile {
 
         // get UserGrade;
         switch(grade) {
-            case 1: userGrade = new FirstGrade  (filePath, fileName, lang, Integer.parseInt(number), input); break;
-            case 2: userGrade = new SecondGrade (filePath, fileName, lang, Integer.parseInt(number), input); break;
-            case 3: userGrade = new ThirdGrade  (filePath, fileName, lang, Integer.parseInt(number), input); break;
+            case 1: userGrade = new FirstGrade  (filePath, fileName, lang, Integer.parseInt(number), input, needMultiLine); break;
+            case 2: userGrade = new SecondGrade (filePath, fileName, lang, Integer.parseInt(number), input, needMultiLine); break;
+            case 3: userGrade = new ThirdGrade  (filePath, fileName, lang, Integer.parseInt(number), input, needMultiLine); break;
             default: break;
         }
 

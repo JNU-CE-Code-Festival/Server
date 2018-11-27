@@ -17,16 +17,18 @@ public abstract class Grade {
     protected String lang;
     protected int problemNum;
     protected String problemInput;
+    protected boolean needMultiLine;
     protected static int TIME_OUT = 1;
 
     protected StringBuilder resultStringBuilder;
 
-    protected Grade(String filePath, String fileName, String lang, int problemNum, String problemInput) {
+    protected Grade(String filePath, String fileName, String lang, int problemNum, String problemInput, boolean needMultiLine) {
         this.filePath           = filePath;
         this.fileName           = fileName;
         this.lang              = lang;
         this.problemNum        = problemNum;
         this.problemInput      = problemInput;
+        this.needMultiLine     = needMultiLine;
 
         resultStringBuilder = new StringBuilder();
     }
@@ -48,14 +50,14 @@ public abstract class Grade {
         ProcessControl.compileProcess(resultStringBuilder, filePath, fileName, lang, problemInput);
         
         if(resultStringBuilder.length() != 0)       return resultStringBuilder;
-        
+
         try {
             resultStringBuilder = ProcessControl.executeProcess(
                 resultStringBuilder, 
                 filePath, 
                 getExecuteFilePath(),
                 lang,
-                (problemInput.length() != 0 ? problemInput.split(",") : null));
+                (problemInput.length() != 0 ? problemInput.split(",") : null), needMultiLine);
 
         } catch(Exception e) {
             throw new RuntimeException();

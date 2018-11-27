@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class FirstGrade extends Grade {
 
-    public FirstGrade(String filePath, String fileName, String lang, int problemNum, String problemInput) {
-        super(filePath, fileName, lang, problemNum, problemInput);
+    public FirstGrade(String filePath, String fileName, String lang, int problemNum, String problemInput, boolean needMultiLine) {
+        super(filePath, fileName, lang, problemNum, problemInput, needMultiLine);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class FirstGrade extends Grade {
                 filePath, 
                 getExecuteFilePath(),
                 lang,
-                problemInput.split(","));
+                problemInput.split(","), needMultiLine);
 
                 String example = "11 22";
         } catch(Exception e) {
@@ -32,7 +32,7 @@ public class FirstGrade extends Grade {
     @Override
     protected void solveProblemTwo() {
         try {
-            resultStringBuilder = ProcessControl.executeProcess(resultStringBuilder, filePath, getExecuteFilePath(), lang, null);
+            resultStringBuilder = ProcessControl.executeProcess(resultStringBuilder, filePath, getExecuteFilePath(), lang, null, needMultiLine);
         } catch(Exception e) {
             throw new RuntimeException();
         }

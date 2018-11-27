@@ -25,7 +25,7 @@ public class ProcessControl {
                 .command(command)
                 .start();
 
-                getOutputStringBuilder(sb, subCompileProcess, true);
+                getOutputStringBuilder(sb, subCompileProcess, true, true);
                 subCompileProcess.waitFor();
                 subCompileProcess.destroy();
                 if(sb.length() != 0) return sb;
@@ -41,7 +41,7 @@ public class ProcessControl {
                 .command(command)
                 .start();
 
-                getOutputStringBuilder(sb, subCompileProcess, true);
+                getOutputStringBuilder(sb, subCompileProcess, true, true);
                 subCompileProcess.waitFor();
                 subCompileProcess.destroy();
 
@@ -56,13 +56,13 @@ public class ProcessControl {
         }
         Process compileProcess = new ProcessBuilder().command(command).start();
 
-        getOutputStringBuilder(sb, compileProcess, true);
+        getOutputStringBuilder(sb, compileProcess, true, true);
         compileProcess.waitFor();
         compileProcess.destroy();
         return sb;
     }
 
-    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath, String lang, String[] inputParameter) throws Exception {
+    public static StringBuilder executeProcess(StringBuilder sb, String filePath, String executeFilePath, String lang, String[] inputParameter, boolean needMultiLine) throws Exception {
 
         String[] command = null;
         if(inputParameter == null) {
@@ -75,9 +75,11 @@ public class ProcessControl {
                 default:                                                                                            break;
             }
 
-            process(sb, command);
+            process(sb, needMultiLine, command);
         } else {
-            for (String input : inputParameter) {
+            for (int i = 0; i < inputParameter.length; i++) {
+                if(i > 0) sb.append(",");
+                String input = inputParameter[i];
                 switch (lang) {
                     case "c":       command = new String[] {"bash", "-c", executeFilePath, input};                             break;
                     case "cpp":     command = new String[] {"bash", "-c", executeFilePath, input};                             break;
@@ -86,9 +88,9 @@ public class ProcessControl {
                     case "py":      command = new String[] {"python", executeFilePath, input};                                break;
                     default:                                                                                                   break;
                 }
-                process(sb, command);
+                process(sb, needMultiLine, command);
+                
             }
-
         }
 
         
@@ -107,13 +109,13 @@ public class ProcessControl {
         return sb;
     }
 
-    private static void process(StringBuilder sb, String... command) throws IOException, InterruptedException {
+    private static void process(StringBuilder sb, boolean needMultiLine, String... command) throws IOException, InterruptedException {
         Process executeProcess =
         new ProcessBuilder()
         .command(command)
         .start();
 
-        getOutputStringBuilder(sb, executeProcess, false);
+        getOutputStringBuilder(sb, executeProcess, false, needMultiLine);
 
         if(!executeProcess.waitFor(TIME_OUT, TimeUnit.SECONDS)) {
             executeProcess.getErrorStream().close();
@@ -126,16 +128,25 @@ public class ProcessControl {
         };
     }
 
-    private static StringBuilder getOutputStringBuilder(StringBuilder sb, Process execute, boolean errorBool) throws IOException {
+    private static StringBuilder getOutputStringBuilder(StringBuilder sb, Process execute, boolean errorBool, boolean needMultiLine) throws IOException {
         InputStream exStream = errorBool ? execute.getErrorStream() : execute.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(exStream));
         String line;
-        line=br.readLine();
-        if(line != null) sb.append(line);
+
+        System.out.println(needMultiLine);
+        // 나중에 문서화 필요.
+        if(!needMultiLine) {
+            line=br.readLine();
+            if(line != null) {
+                sb.append(line);
+            }
+        }
+        
         while((line=br.readLine()) != null) {
-            sb.append(",");
+            // if(!needMultiLine) {sb.append(",");}
             sb.append(line);
-            // sb.append(System.getProperty("line.separator"));
+
+            if(needMultiLine) {sb.append(System.getProperty("line.separator"));}
             
         }
         br.close();

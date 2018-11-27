@@ -72,6 +72,7 @@ hr {
 .problem-content {
     padding: 10px;
     color: #aaaaaa;
+    white-space: pre-line;
 }
 .code_editor {
     height: inherit;

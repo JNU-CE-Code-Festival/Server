@@ -4,8 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 public class SecondGrade extends Grade {
 
-    public SecondGrade(String filePath, String fileName, String lang, int problemNum, String problemInput) {
-        super(filePath, fileName, lang, problemNum, problemInput);
+    public SecondGrade(String filePath, String fileName, String lang, int problemNum, String problemInput, boolean needMultiLine) {
+        super(filePath, fileName, lang, problemNum, problemInput, needMultiLine);
     }
 
     @Override
