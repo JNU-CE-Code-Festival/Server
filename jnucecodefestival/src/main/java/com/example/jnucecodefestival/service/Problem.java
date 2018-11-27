@@ -12,6 +12,7 @@ public class Problem {
     private String problemAnswer;
     private String problemInputDescription;
     private String problemOutputDescription;
+    private String template;
 
     public int getId() {
         return id;
@@ -99,5 +100,13 @@ public class Problem {
 
     public void setProblemOutputDescription(String problemOutputDescription) {
         this.problemOutputDescription = problemOutputDescription;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
     }
 }

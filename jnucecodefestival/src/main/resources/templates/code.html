@@ -19,7 +19,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <!-- <script src="/javascripts/templateCode.js"></script> -->
     <script th:inline="javascript">
     /*<![CDATA[*/
-        var template = JSON.parse(/*[[${template}]]*/);
+        var template = JSON.parse(/*[[${template.toString()}]]*/);
     /*]]>*/
     </script>
     <script src="/javascripts/codemirror.js"></script>

@@ -12,18 +12,18 @@ public class UserDao {
         this.connectionMaker = connectionMaker;
     }
 
-    public User get(String id) throws ClassNotFoundException, SQLException {
+    public User get(String username) throws ClassNotFoundException, SQLException {
         Connection connection = connectionMaker.makeConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "select * from users where id = ?");
-        preparedStatement.setString(1, id);
+                "select * from users where username = ?");
+        preparedStatement.setString(1, username);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
 
         User user = new User();
-        user.setId(resultSet.getString("id"));
+        user.setId(resultSet.getString("username"));
         user.setPassword(resultSet.getString("password"));
         user.setName(resultSet.getString("name"));
         user.setGrade(resultSet.getInt("grade"));

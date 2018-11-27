@@ -9,4 +9,4 @@ language VARCHAR(10),
 score tinyint(1) NOT NULL DEFAULT 0) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* RankDao - addRank */
-INSERT INTO rank(id, userName, problemNum, submitCount, timeStamp, language, score) VALUES(?, ?, ?, ?, ?, ?, ?);
+INSERT INTO solve(id, userName, problemNum, submitCount, timeStamp, language, score) VALUES(?, ?, ?, ?, ?, ?, ?);

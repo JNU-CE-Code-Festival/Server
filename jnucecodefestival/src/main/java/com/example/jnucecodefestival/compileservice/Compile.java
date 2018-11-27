@@ -29,8 +29,8 @@ public class Compile {
         FileControl.hasFolder(filePath, grade, number, lang);
         FileControl.makeFile(filePath, fileName, code);
 
-        // if extensions of file is java, make file that name is solution
-        if(lang.equals("java")) FileControl.makeFile (filePath, "Solution.java", code);
+        // if extensions of file is java or js or py, make file that name is solution
+        if(lang.equals("java") || lang.equals("js") || lang.equals("py")) FileControl.makeFile (filePath, "Solution." + lang, code);
 
         // get UserGrade;
         switch(grade) {

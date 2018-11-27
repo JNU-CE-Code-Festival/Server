@@ -22,6 +22,8 @@ public class FirstGrade extends Grade {
                 getExecuteFilePath(),
                 lang,
                 problemInput.split(","));
+
+                String example = "11 22";
         } catch(Exception e) {
             throw new RuntimeException();
         }

@@ -24,6 +24,7 @@ class Problem {
         this.renderContainer = this.renderContainer.bind(this);
         this.renderProblem = this.renderProblem.bind(this);
         this.renderScore = this.renderScore.bind(this);
+        this.renderRank = this.renderRank.bind(this);
     }
     renderList() {
 
@@ -55,7 +56,7 @@ class Problem {
 
     renderContainer(id) {
         const switchState = {
-            "score": this.renderScore,
+            "score": this.renderRank,
             "problem": this.renderProblem,
         }[id];
         this.container.innerHTML = "";
@@ -91,6 +92,63 @@ class Problem {
             console.error(err);
         }
         
+    }
+
+    async renderRank() {
+        console.log("rank");
+        try {
+            let res = await fetch('/rank', {method: 'GET'});
+            let json = await res.json();
+            console.log(json.data);
+            console.log(json.rank);
+            if(json.rank.length !== 0) {
+                json.rank.map((rankItem, index) => {
+                    let block = document.createElement('div');
+                    block.className = 'item';
+
+                    let itemNumber = document.createElement('div');
+                    itemNumber.className  = "item_number";
+                    itemNumber.innerText = index + 1;
+                    block.appendChild(itemNumber);
+                    let title = document.createElement('div');
+                    title.className = 'item_subject';
+                    title.innerText = rankItem.username;
+
+                    block.appendChild(title);
+
+                    let scoreBar = document.createElement('div');
+                    scoreBar.className = 'score_bar';
+                    
+                    let userScoreHistory = json.data.filter(({ userName }) => userName === rankItem.username);
+
+                    for(let i = 1; i <= 3; i++) {
+
+                        let scoreBlock = document.createElement('div');
+                        let isExists = 
+                            userScoreHistory
+                                .filter(({ problemNum }) => parseInt(problemNum) === i);
+                                // .filter(({ score }) => parseInt(score) === 1);
+                        console.log(isExists);
+                        scoreBlock.className = (isExists.length !== 0 && isExists[0].score) ? "success" : "fail";
+                        scoreBlock.innerHTML =`
+                            <div class="hover-content">
+                                ${isExists.length !== 0 ? isExists[0].submitCount : "미시도"}
+                            </div>
+                        `
+                        scoreBar.appendChild(scoreBlock);
+                    }
+                    // json.data.filter(({userName}) => userName === rankItem.username).map(item => {
+                    //     let scoreBlock = document.createElement('div');
+                    //     block.innerText=item.userName;
+                    //     block.innerHTML+='ba';
+                    // })
+                    block.appendChild(scoreBar);
+                    this.container.appendChild(block);
+                })
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
 

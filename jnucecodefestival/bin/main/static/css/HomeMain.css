@@ -83,3 +83,36 @@ a {
 .item > .item_subject {
     font-size: 20pt;
 } 
+
+.score_bar {
+    flex: 1;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+.success {
+    width: 20px;
+    height: 20px;
+    background-color:green;
+    margin: 10px;
+}
+
+.fail {
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    margin: 10px;
+}
+
+.hover-content {
+    display: none;
+    width:auto;
+}
+
+.success:hover .hover-content {
+    display: block;
+}
+.fail:hover .hover-content {
+    display: block;
+}

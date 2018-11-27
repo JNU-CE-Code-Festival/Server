@@ -17,7 +17,7 @@ public class FileControl {
             targetDir.mkdirs();
             String extension = lang.equals("c") || lang.equals("cpp") ? "o" : lang;
             // ex) compile/template/1/2.py
-            String originLocation = "compile/template/" + grade + "/" + lang + "/" + number + "." + extension;
+            String originLocation = "template/" + grade + "/" + lang + "/" + number + "." + extension;
             copyTemplateFile(originLocation, filePath + "/Main." + extension);
         }
     }

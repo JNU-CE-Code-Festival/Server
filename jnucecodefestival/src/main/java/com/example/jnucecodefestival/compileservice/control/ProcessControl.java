@@ -68,7 +68,7 @@ public class ProcessControl {
             switch (lang) {
                 case "c":       command = new String[] {"bash", "-c", executeFilePath};                             break;
                 case "cpp":     command = new String[] {"bash", "-c", executeFilePath};                             break;
-                case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main"};      break;
+                case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", "11 22"};      break;
                 case "js":      command = new String[] {"node", executeFilePath};                                   break;
                 case "py":      command = new String[] {"python3", executeFilePath};                                break;
                 default:                                                                                            break;
@@ -76,7 +76,7 @@ public class ProcessControl {
         } else {
             for (String input : inputParameter) {
                 switch (lang) {
-                    case "c":       command = new String[] {"bash", "-c", executeFilePath, input};                             break;
+                    case "c":       command = new String[] {"bash", "-c", executeFilePath, "11 22"};                             break;
                     case "cpp":     command = new String[] {"bash", "-c", executeFilePath, input};                             break;
                     case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", input};      break;
                     case "js":      command = new String[] {"node", executeFilePath, input};                                   break;
@@ -105,7 +105,7 @@ public class ProcessControl {
         
         
         // Global except JAVA
-        FileControl.deleteFile(executeFilePath);
+        FileControl.deleteFile(filePath + "/Solution." + lang);
 
         // for JAVA
         FileControl.deleteFile(filePath + "/Main.class");
