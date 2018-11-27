@@ -67,6 +67,25 @@ public class CompileController {
         String answer = getAnswerFromDataBase(code, problemNum);
 
         int score = result.equals(answer) ? 1 : 0;
+
+        if(problemNum.equals("2") && grade == 3) {
+            System.out.println("이것은 카카오문제입니다. 숫자 보정이 필요합니다.");
+            try {
+                String[] resultArray = result.split(",");
+                String[] answerArray = result.split(",");
+
+                for(int i = 0; i < answerArray.length; i++) {
+                    double resultToInt = Double.parseDouble(resultArray[i]);
+                    double answerToInt = Double.parseDouble(answerArray[i]);
+
+                    if(Math.abs(answerToInt - resultToInt) <= Math.pow(10, -6)) {
+                        score = 1;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                score = 0;
+            }
+        }
         
         try {
             jdbcTemplate.queryForMap("select * from solve where problemNum = ?", problemNum);
