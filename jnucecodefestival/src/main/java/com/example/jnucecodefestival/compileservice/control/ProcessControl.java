@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
@@ -68,24 +69,45 @@ public class ProcessControl {
             switch (lang) {
                 case "c":       command = new String[] {"bash", "-c", executeFilePath};                             break;
                 case "cpp":     command = new String[] {"bash", "-c", executeFilePath};                             break;
-                case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", "11 22"};      break;
+                case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main"};      break;
                 case "js":      command = new String[] {"node", executeFilePath};                                   break;
                 case "py":      command = new String[] {"python", executeFilePath};                                break;
                 default:                                                                                            break;
             }
+
+            process(sb, command);
         } else {
             for (String input : inputParameter) {
                 switch (lang) {
-                    case "c":       command = new String[] {"bash", "-c", executeFilePath, "11 22"};                             break;
+                    case "c":       command = new String[] {"bash", "-c", executeFilePath, input};                             break;
                     case "cpp":     command = new String[] {"bash", "-c", executeFilePath, input};                             break;
                     case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", input};      break;
                     case "js":      command = new String[] {"node", executeFilePath, input};                                   break;
                     case "py":      command = new String[] {"python", executeFilePath, input};                                break;
                     default:                                                                                                   break;
                 }
+                process(sb, command);
             }
+
         }
 
+        
+        
+        
+        // Global except JAVA
+        // FileControl.deleteFile(filePath + "/Solution." + lang);
+
+        // for JAVA
+        FileControl.deleteFile(filePath + "/Main.class");
+        FileControl.deleteFile(filePath + "/Solution.class");
+
+        // for C, C++
+        FileControl.deleteFile(filePath + "/solution.o");
+         
+        return sb;
+    }
+
+    private static void process(StringBuilder sb, String... command) throws IOException, InterruptedException {
         Process executeProcess =
         new ProcessBuilder()
         .command(command)
@@ -102,28 +124,19 @@ public class ProcessControl {
             sb.setLength(0);
             sb.append("런타임 에러!");
         };
-        
-        
-        // Global except JAVA
-        // FileControl.deleteFile(filePath + "/Solution." + lang);
-
-        // for JAVA
-        FileControl.deleteFile(filePath + "/Main.class");
-        FileControl.deleteFile(filePath + "/Solution.class");
-
-        // for C, C++
-        FileControl.deleteFile(filePath + "/solution.o");
-         
-        return sb;
     }
 
     private static StringBuilder getOutputStringBuilder(StringBuilder sb, Process execute, boolean errorBool) throws IOException {
         InputStream exStream = errorBool ? execute.getErrorStream() : execute.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(exStream));
         String line;
+        line=br.readLine();
+        if(line != null) sb.append(line);
         while((line=br.readLine()) != null) {
+            sb.append(",");
             sb.append(line);
-            sb.append(System.getProperty("line.separator"));
+            // sb.append(System.getProperty("line.separator"));
+            
         }
         br.close();
         return sb;

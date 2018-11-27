@@ -48,13 +48,24 @@ public abstract class Grade {
         ProcessControl.compileProcess(resultStringBuilder, filePath, fileName, lang, problemInput);
         
         if(resultStringBuilder.length() != 0)       return resultStringBuilder;
+        
+        try {
+            resultStringBuilder = ProcessControl.executeProcess(
+                resultStringBuilder, 
+                filePath, 
+                getExecuteFilePath(),
+                lang,
+                (problemInput.length() != 0 ? problemInput.split(",") : null));
 
-        switch(problemNum) {
-            case 1:         solveProblemOne();      break;
-            case 2:         solveProblemTwo();      break;
-            case 3:         solveProblemThree();    break;
-            default:                                break;
+        } catch(Exception e) {
+            throw new RuntimeException();
         }
+        // switch(problemNum) {
+        //     case 1:         solveProblemOne();      break;
+        //     case 2:         solveProblemTwo();      break;
+        //     case 3:         solveProblemThree();    break;
+        //     default:                                break;
+        // }
         return resultStringBuilder;
     }
 
