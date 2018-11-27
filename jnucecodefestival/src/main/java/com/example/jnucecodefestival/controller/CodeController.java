@@ -24,8 +24,6 @@ public class CodeController {
 
         Map<String, Object> problem = this.jdbctemplate.queryForMap("select * from problem where id=" + number );
         Map<String, Object> grade = this.jdbctemplate.queryForMap("select grade from users where username=\"" + userDetails.getUsername() + "\"");
-        System.out.println(grade.get("grade"));
-        System.out.println(problem.get("grade"));
         if(grade.get("grade").toString().equals(problem.get("grade").toString())) {
             model.addAttribute("problemTitle", problem.get("problemTitle"));
             model.addAttribute("problemContent", problem.get("problemContent"));
@@ -35,7 +33,6 @@ public class CodeController {
         } else {
             return "403";
         }
-        System.out.println(problem.toString());
 
         return "code";
     }
