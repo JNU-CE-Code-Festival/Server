@@ -91,7 +91,7 @@ hr {
 }
 
 select.lang {
-    width: 100px;
+    width: auto;
     background-color:#343a40;
     border:0;
     outline:0;
