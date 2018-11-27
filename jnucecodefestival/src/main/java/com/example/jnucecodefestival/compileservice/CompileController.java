@@ -78,11 +78,12 @@ public class CompileController {
                     double resultToInt = Double.parseDouble(resultArray[i]);
                     double answerToInt = Double.parseDouble(answerArray[i]);
 
-                    if(Math.abs(answerToInt - resultToInt) <= Math.pow(10, -6)) {
-                        score = 1;
+                    if(Math.abs(answerToInt - resultToInt) > Math.pow(10, -6)) {
+                        throw new Exception();
                     }
                 }
-            } catch (NumberFormatException e) {
+                score = 1;
+            } catch (Exception e) {
                 score = 0;
             }
         }
