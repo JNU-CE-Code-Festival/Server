@@ -69,8 +69,8 @@ public class CompileController {
         int score = result.equals(answer) ? 1 : 0;
         
         try {
-            jdbcTemplate.queryForMap("select * from solve where problemNum = ?", 12);
-            jdbcTemplate.update("Update solve set language = ?, score = ?, submitCount=submitCount+1 where userName = ? and problemNum = ?", code.getLanguage(), score, code.getCreateAuthor(), problemNum);
+            jdbcTemplate.queryForMap("select * from solve where problemNum = ?", problemNum);
+            jdbcTemplate.update("Update solve set language = ?, score = ?, submitCount=submitCount+1, timeStamp = ? where userName = ? and problemNum = ?", code.getLanguage(), score, new Timestamp(System.currentTimeMillis()), code.getCreateAuthor(), problemNum);
         } catch (EmptyResultDataAccessException e) {
             jdbcTemplate.update("Insert into solve(username, problemNum, submitCount, timeStamp, language, score) values(?,?,?,?,?,?)", code.getCreateAuthor(), problemNum, 1, new Timestamp(System.currentTimeMillis()), code.getLanguage(), score);
         }
