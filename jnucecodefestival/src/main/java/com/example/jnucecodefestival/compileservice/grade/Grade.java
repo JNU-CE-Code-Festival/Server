@@ -64,7 +64,7 @@ public abstract class Grade {
             case "cpp":     return filePath + "/a.out";
             case "java":    return "Main";
             case "js":      return filePath + "/" + "Main.js";
-            case "py":      return filePath + "/" + fileName;
+            case "py":      return filePath + "/" + "Main.py";
             default:        return "";
         }
     }

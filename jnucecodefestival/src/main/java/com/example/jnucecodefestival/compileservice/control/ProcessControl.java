@@ -70,7 +70,7 @@ public class ProcessControl {
                 case "cpp":     command = new String[] {"bash", "-c", executeFilePath};                             break;
                 case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", "11 22"};      break;
                 case "js":      command = new String[] {"node", executeFilePath};                                   break;
-                case "py":      command = new String[] {"python3", executeFilePath};                                break;
+                case "py":      command = new String[] {"python", executeFilePath};                                break;
                 default:                                                                                            break;
             }
         } else {
@@ -80,7 +80,7 @@ public class ProcessControl {
                     case "cpp":     command = new String[] {"bash", "-c", executeFilePath, input};                             break;
                     case "java":    command = new String[] {"java", "-cp", filePath, "-Dfile.encoding=utf-8", "Main", input};      break;
                     case "js":      command = new String[] {"node", executeFilePath, input};                                   break;
-                    case "py":      command = new String[] {"python3", executeFilePath, input};                                break;
+                    case "py":      command = new String[] {"python", executeFilePath, input};                                break;
                     default:                                                                                                   break;
                 }
             }
@@ -105,7 +105,7 @@ public class ProcessControl {
         
         
         // Global except JAVA
-        FileControl.deleteFile(filePath + "/Solution." + lang);
+        // FileControl.deleteFile(filePath + "/Solution." + lang);
 
         // for JAVA
         FileControl.deleteFile(filePath + "/Main.class");
