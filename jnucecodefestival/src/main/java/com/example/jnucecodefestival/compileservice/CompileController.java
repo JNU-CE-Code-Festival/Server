@@ -1,5 +1,6 @@
 package com.example.jnucecodefestival.compileservice;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
 import com.example.jnucecodefestival.model.CompileRequest;
@@ -68,7 +69,7 @@ public class CompileController {
         try {
             jdbcTemplate.update("Update solve set language = ?, score = ?, submitCount=submitCount+1 where userName = ? and problemNum = ?", code.getLanguage(), score, code.getCreateAuthor(), problemNum);
         } catch( DataAccessException dae) {
-            jdbcTemplate.update("Insert into solve(username, problemNum, submitCount, timeStamp, language, score) values(?,?,?,?,?,?)", code.getCreateAuthor(), problemNum, 1, new Timestamp(System.currentTimeMillis()), code.getLanguage(), score)
+            jdbcTemplate.update("Insert into solve(username, problemNum, submitCount, timeStamp, language, score) values(?,?,?,?,?,?)", code.getCreateAuthor(), problemNum, 1, new Timestamp(System.currentTimeMillis()), code.getLanguage(), score);
         }
         
 
