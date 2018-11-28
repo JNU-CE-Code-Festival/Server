@@ -121,7 +121,7 @@ public class ProcessControl {
             executeProcess.getErrorStream().close();
             executeProcess.getInputStream().close();
             executeProcess.getOutputStream().close();
-            executeProcess.destroy();
+            executeProcess.destroyForcibly();
             
             sb.setLength(0);
             sb.append("런타임 에러!");

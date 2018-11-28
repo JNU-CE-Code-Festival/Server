@@ -10,9 +10,6 @@ buildscript {
     }
 }
 
-bootRun {
-	systemProperties = System.properties
-}
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
