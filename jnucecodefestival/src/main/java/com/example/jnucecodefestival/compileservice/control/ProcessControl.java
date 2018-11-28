@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
 
 public class ProcessControl {
-    public static final long TIME_OUT = 1;
+    public static final long TIME_OUT = 1500;
     
     public static StringBuilder compileProcess(StringBuilder sb, String filePath, String fileName, String lang, String input) throws Exception {    
         String executeFilePath = null;
@@ -115,25 +117,29 @@ public class ProcessControl {
         .command(command)
         .start();
 
+
         getOutputStringBuilder(sb, executeProcess, false, needMultiLine);
 
-        if(!executeProcess.waitFor(TIME_OUT, TimeUnit.SECONDS)) {
+        if(executeProcess.isAlive()) {
+            System.out.println("타임아웃");
             executeProcess.getErrorStream().close();
             executeProcess.getInputStream().close();
             executeProcess.getOutputStream().close();
-            executeProcess.destroy();
+            Process kill = executeProcess.destroyForcibly();
             
             sb.setLength(0);
             sb.append("런타임 에러!");
         };
     }
 
-    private static StringBuilder getOutputStringBuilder(StringBuilder sb, Process execute, boolean errorBool, boolean needMultiLine) throws IOException {
+    private static long getOutputStringBuilder(StringBuilder sb, Process execute, boolean errorBool, boolean needMultiLine) throws IOException {
         InputStream exStream = errorBool ? execute.getErrorStream() : execute.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(exStream));
         String line;
+        
 
-        System.out.println(needMultiLine);
+        long time = System.currentTimeMillis();
+
         // 나중에 문서화 필요.
         if(!needMultiLine) {
             line=br.readLine();
@@ -141,8 +147,8 @@ public class ProcessControl {
                 sb.append(line);
             }
         }
-        
-        while((line=br.readLine()) != null) {
+        long elipse = 0;
+        while((line=br.readLine()) != null && (elipse = System.currentTimeMillis() - time) <= TIME_OUT) {
             // if(!needMultiLine) {sb.append(",");}
             sb.append(line);
 
@@ -150,6 +156,6 @@ public class ProcessControl {
             
         }
         br.close();
-        return sb;
+        return elipse;
     }
 }
