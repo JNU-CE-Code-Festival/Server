@@ -95,7 +95,7 @@ public class CompileController {
             jdbcTemplate.update("Insert into solve(username, problemNum, submitCount, timeStamp, language, score) values(?,?,?,?,?,?)", code.getCreateAuthor(), problemNum, 1, new Timestamp(System.currentTimeMillis()), code.getLanguage(), score);
         }
 
-        return result.equals(answer) ? result + " " + answer + " 정답!": result + " " + answer + "실패 !";
+        return result.equals(answer) ? "정답!": "실패!";
     }
 
     private String getAnswerFromDataBase(CompileRequest code, String problemNum) throws DataAccessException {
